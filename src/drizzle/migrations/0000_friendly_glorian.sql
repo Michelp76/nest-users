@@ -1,4 +1,4 @@
-CREATE SCHEMA "bookings";
+--CREATE SCHEMA "bookings";
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "bookings"."aircrafts_data" (
 	"aircraft_code" char(3) PRIMARY KEY NOT NULL,
@@ -67,11 +67,11 @@ CREATE TABLE IF NOT EXISTS "bookings"."tickets" (
 	"contact_data" jsonb
 );
 --> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "bookings"."boarding_passes" ADD CONSTRAINT "boarding_passes_flight_id_ticket_flights_flight_id_fk" FOREIGN KEY ("flight_id") REFERENCES "bookings"."ticket_flights"("flight_id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
+-- DO $$ BEGIN
+--  ALTER TABLE "bookings"."boarding_passes" ADD CONSTRAINT "boarding_passes_flight_id_ticket_flights_flight_id_fk" FOREIGN KEY ("flight_id") REFERENCES "bookings"."ticket_flights"("flight_id") ON DELETE no action ON UPDATE no action;
+-- EXCEPTION
+--  WHEN duplicate_object THEN null;
+-- END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "bookings"."flights" ADD CONSTRAINT "flights_departure_airport_airports_data_airport_code_fk" FOREIGN KEY ("departure_airport") REFERENCES "bookings"."airports_data"("airport_code") ON DELETE no action ON UPDATE no action;

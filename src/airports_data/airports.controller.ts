@@ -3,7 +3,7 @@ import { AirportsService } from './airports.service';
 import { CreateAirportDto } from './dto/create-airport.dto';
 import { UpdateAirportDto } from './dto/update-airport.dto';
 
-@Controller('airports')
+@Controller('airports_data')
 export class AirportsController {
   constructor(private readonly airportsService: AirportsService) {}
 

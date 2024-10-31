@@ -1,21 +1,21 @@
 import { pgTable, pgSchema, foreignKey, char, varchar, text, jsonb, primaryKey, unique, integer, serial, timestamp, numeric, customType, point } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 
-export const bookings = pgSchema("bookings");
+export const bookingsSchema = pgSchema("bookings");
 
 
 
-export const ticketsInBookings = bookings.table("tickets", {
+export const tickets = bookingsSchema.table("tickets", {
 	ticketNo: char("ticket_no", { length: 13 }).primaryKey().notNull(),
-	bookRef: char("book_ref", { length: 6 }).notNull().references(() => bookingsInBookings.bookRef),
+	bookRef: char("book_ref", { length: 6 }).notNull().references(() => bookings.bookRef),
 	passengerId: varchar("passenger_id", { length: 20 }).notNull(),
 	passengerName: text("passenger_name").notNull(),
 	contactData: jsonb("contact_data"),
 });
 
-export const boardingPassesInBookings = bookings.table("boarding_passes", {
+export const boardingPasses = bookingsSchema.table("boarding_passes", {
 	ticketNo: char("ticket_no", { length: 13 }).primaryKey().notNull(),
-	flightId: integer("flight_id").primaryKey().notNull().references(() => ticketFlightsInBookings.flightId),
+	flightId: integer("flight_id").primaryKey().notNull().references(() => ticketFlights.flightId),
 	boardingNo: integer("boarding_no").notNull(),
 	seatNo: varchar("seat_no", { length: 4 }).notNull(),
 },
@@ -27,15 +27,15 @@ export const boardingPassesInBookings = bookings.table("boarding_passes", {
 	}
 });
 
-export const flightsInBookings = bookings.table("flights", {
+export const flights = bookingsSchema.table("flights", {
 	flightId: serial("flight_id").primaryKey().notNull(),
 	flightNo: char("flight_no", { length: 6 }).notNull(),
 	scheduledDeparture: timestamp("scheduled_departure", { withTimezone: true, mode: 'string' }).notNull(),
 	scheduledArrival: timestamp("scheduled_arrival", { withTimezone: true, mode: 'string' }).notNull(),
-	departureAirport: char("departure_airport", { length: 3 }).notNull().references(() => airportsDataInBookings.airportCode),
-	arrivalAirport: char("arrival_airport", { length: 3 }).notNull().references(() => airportsDataInBookings.airportCode),
+	departureAirport: char("departure_airport", { length: 3 }).notNull().references(() => airportsData.airportCode, { onDelete: "cascade" }),
+	arrivalAirport: char("arrival_airport", { length: 3 }).notNull().references(() => airportsData.airportCode, { onDelete: "cascade" }),
 	status: varchar("status", { length: 20 }).notNull(),
-	aircraftCode: char("aircraft_code", { length: 3 }).notNull().references(() => aircraftsDataInBookings.aircraftCode),
+	aircraftCode: char("aircraft_code", { length: 3 }).notNull().references(() => aircraftsData.aircraftCode),
 	actualDeparture: timestamp("actual_departure", { withTimezone: true, mode: 'string' }),
 	actualArrival: timestamp("actual_arrival", { withTimezone: true, mode: 'string' }),
 },
@@ -45,15 +45,15 @@ export const flightsInBookings = bookings.table("flights", {
 	}
 });
 
-export const aircraftsDataInBookings = bookings.table("aircrafts_data", {
+export const aircraftsData = bookingsSchema.table("aircrafts_data", {
 	aircraftCode: char("aircraft_code", { length: 3 }).primaryKey().notNull(),
 	model: jsonb("model").notNull(),
 	range: integer("range").notNull(),
 });
 
-export const ticketFlightsInBookings = bookings.table("ticket_flights", {
-	ticketNo: char("ticket_no", { length: 13 }).primaryKey().notNull().references(() => ticketsInBookings.ticketNo),
-	flightId: integer("flight_id").primaryKey().notNull().references(() => flightsInBookings.flightId),
+export const ticketFlights = bookingsSchema.table("ticket_flights", {
+	ticketNo: char("ticket_no", { length: 13 }).primaryKey().notNull().references(() => tickets.ticketNo),
+	flightId: integer("flight_id").primaryKey().notNull().references(() => flights.flightId),
 	fareConditions: varchar("fare_conditions", { length: 10 }).notNull(),
 	amount: numeric("amount", { precision: 10, scale:  2 }).notNull(),
 },
@@ -63,14 +63,14 @@ export const ticketFlightsInBookings = bookings.table("ticket_flights", {
 	}
 });
 
-export const bookingsInBookings = bookings.table("bookings", {
+export const bookings = bookingsSchema.table("bookings", {
 	bookRef: char("book_ref", { length: 6 }).primaryKey().notNull(),
 	bookDate: timestamp("book_date", { withTimezone: true, mode: 'string' }).notNull(),
 	totalAmount: numeric("total_amount", { precision: 10, scale:  2 }).notNull(),
 });
 
-export const seatsInBookings = bookings.table("seats", {
-	aircraftCode: char("aircraft_code", { length: 3 }).primaryKey().notNull().references(() => aircraftsDataInBookings.aircraftCode, { onDelete: "cascade" } ),
+export const seats = bookingsSchema.table("seats", {
+	aircraftCode: char("aircraft_code", { length: 3 }).primaryKey().notNull().references(() => aircraftsData.aircraftCode, { onDelete: "cascade" } ),
 	seatNo: varchar("seat_no", { length: 4 }).primaryKey().notNull(),
 	fareConditions: varchar("fare_conditions", { length: 10 }).notNull(),
 },
@@ -80,10 +80,10 @@ export const seatsInBookings = bookings.table("seats", {
 	}
 });
 
-export const airportsDataInBookings = bookings.table("airports_data", {
+export const airportsData = bookingsSchema.table("airports_data", {
 	airportCode: char("airport_code", { length: 3 }).primaryKey().notNull(),
 	airportName: jsonb("airport_name").notNull(),
 	city: jsonb("city").notNull(),
-	coordinates: point("coordinates").notNull(),
+	coordinates: point("coordinates", { mode: 'xy' }).notNull(),
 	timezone: text("timezone").notNull(),
 });

@@ -1,0 +1,496 @@
+{
+  "id": "02ad632b-f790-4417-9e50-582b83a92b72",
+  "prevId": "4547b833-1524-4b3c-a3a5-18df5c192357",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "bookings.aircrafts_data": {
+      "name": "aircrafts_data",
+      "schema": "bookings",
+      "columns": {
+        "aircraft_code": {
+          "name": "aircraft_code",
+          "type": "char(3)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "model": {
+          "name": "model",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "range": {
+          "name": "range",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "bookings.airports_data": {
+      "name": "airports_data",
+      "schema": "bookings",
+      "columns": {
+        "airport_code": {
+          "name": "airport_code",
+          "type": "char(3)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "airport_name": {
+          "name": "airport_name",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "city": {
+          "name": "city",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "coordinates": {
+          "name": "coordinates",
+          "type": "point",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "timezone": {
+          "name": "timezone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "bookings.boarding_passes": {
+      "name": "boarding_passes",
+      "schema": "bookings",
+      "columns": {
+        "ticket_no": {
+          "name": "ticket_no",
+          "type": "char(13)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "flight_id": {
+          "name": "flight_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "boarding_no": {
+          "name": "boarding_no",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "seat_no": {
+          "name": "seat_no",
+          "type": "varchar(4)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "boarding_passes_flight_id_ticket_flights_flight_id_fk": {
+          "name": "boarding_passes_flight_id_ticket_flights_flight_id_fk",
+          "tableFrom": "boarding_passes",
+          "tableTo": "ticket_flights",
+          "schemaTo": "bookings",
+          "columnsFrom": [
+            "flight_id"
+          ],
+          "columnsTo": [
+            "flight_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "boarding_passes_pkey": {
+          "name": "boarding_passes_pkey",
+          "columns": [
+            "ticket_no",
+            "flight_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "boarding_passes_flight_id_boarding_no_key": {
+          "name": "boarding_passes_flight_id_boarding_no_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "flight_id",
+            "boarding_no"
+          ]
+        },
+        "boarding_passes_flight_id_seat_no_key": {
+          "name": "boarding_passes_flight_id_seat_no_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "flight_id",
+            "seat_no"
+          ]
+        }
+      },
+      "checkConstraints": {}
+    },
+    "bookings.bookings": {
+      "name": "bookings",
+      "schema": "bookings",
+      "columns": {
+        "book_ref": {
+          "name": "book_ref",
+          "type": "char(6)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "book_date": {
+          "name": "book_date",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "total_amount": {
+          "name": "total_amount",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "bookings.flights": {
+      "name": "flights",
+      "schema": "bookings",
+      "columns": {
+        "flight_id": {
+          "name": "flight_id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "flight_no": {
+          "name": "flight_no",
+          "type": "char(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "scheduled_departure": {
+          "name": "scheduled_departure",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "scheduled_arrival": {
+          "name": "scheduled_arrival",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "departure_airport": {
+          "name": "departure_airport",
+          "type": "char(3)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "arrival_airport": {
+          "name": "arrival_airport",
+          "type": "char(3)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "aircraft_code": {
+          "name": "aircraft_code",
+          "type": "char(3)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "actual_departure": {
+          "name": "actual_departure",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "actual_arrival": {
+          "name": "actual_arrival",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "flights_departure_airport_airports_data_airport_code_fk": {
+          "name": "flights_departure_airport_airports_data_airport_code_fk",
+          "tableFrom": "flights",
+          "tableTo": "airports_data",
+          "schemaTo": "bookings",
+          "columnsFrom": [
+            "departure_airport"
+          ],
+          "columnsTo": [
+            "airport_code"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "flights_arrival_airport_airports_data_airport_code_fk": {
+          "name": "flights_arrival_airport_airports_data_airport_code_fk",
+          "tableFrom": "flights",
+          "tableTo": "airports_data",
+          "schemaTo": "bookings",
+          "columnsFrom": [
+            "arrival_airport"
+          ],
+          "columnsTo": [
+            "airport_code"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "flights_aircraft_code_aircrafts_data_aircraft_code_fk": {
+          "name": "flights_aircraft_code_aircrafts_data_aircraft_code_fk",
+          "tableFrom": "flights",
+          "tableTo": "aircrafts_data",
+          "schemaTo": "bookings",
+          "columnsFrom": [
+            "aircraft_code"
+          ],
+          "columnsTo": [
+            "aircraft_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "flights_flight_no_scheduled_departure_key": {
+          "name": "flights_flight_no_scheduled_departure_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "flight_no",
+            "scheduled_departure"
+          ]
+        }
+      },
+      "checkConstraints": {}
+    },
+    "bookings.seats": {
+      "name": "seats",
+      "schema": "bookings",
+      "columns": {
+        "aircraft_code": {
+          "name": "aircraft_code",
+          "type": "char(3)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "seat_no": {
+          "name": "seat_no",
+          "type": "varchar(4)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "fare_conditions": {
+          "name": "fare_conditions",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "seats_aircraft_code_aircrafts_data_aircraft_code_fk": {
+          "name": "seats_aircraft_code_aircrafts_data_aircraft_code_fk",
+          "tableFrom": "seats",
+          "tableTo": "aircrafts_data",
+          "schemaTo": "bookings",
+          "columnsFrom": [
+            "aircraft_code"
+          ],
+          "columnsTo": [
+            "aircraft_code"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "seats_pkey": {
+          "name": "seats_pkey",
+          "columns": [
+            "aircraft_code",
+            "seat_no"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "bookings.ticket_flights": {
+      "name": "ticket_flights",
+      "schema": "bookings",
+      "columns": {
+        "ticket_no": {
+          "name": "ticket_no",
+          "type": "char(13)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "flight_id": {
+          "name": "flight_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "fare_conditions": {
+          "name": "fare_conditions",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ticket_flights_ticket_no_tickets_ticket_no_fk": {
+          "name": "ticket_flights_ticket_no_tickets_ticket_no_fk",
+          "tableFrom": "ticket_flights",
+          "tableTo": "tickets",
+          "schemaTo": "bookings",
+          "columnsFrom": [
+            "ticket_no"
+          ],
+          "columnsTo": [
+            "ticket_no"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "ticket_flights_flight_id_flights_flight_id_fk": {
+          "name": "ticket_flights_flight_id_flights_flight_id_fk",
+          "tableFrom": "ticket_flights",
+          "tableTo": "flights",
+          "schemaTo": "bookings",
+          "columnsFrom": [
+            "flight_id"
+          ],
+          "columnsTo": [
+            "flight_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "ticket_flights_pkey": {
+          "name": "ticket_flights_pkey",
+          "columns": [
+            "ticket_no",
+            "flight_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "bookings.tickets": {
+      "name": "tickets",
+      "schema": "bookings",
+      "columns": {
+        "ticket_no": {
+          "name": "ticket_no",
+          "type": "char(13)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "book_ref": {
+          "name": "book_ref",
+          "type": "char(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "passenger_id": {
+          "name": "passenger_id",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "passenger_name": {
+          "name": "passenger_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contact_data": {
+          "name": "contact_data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "tickets_book_ref_bookings_book_ref_fk": {
+          "name": "tickets_book_ref_bookings_book_ref_fk",
+          "tableFrom": "tickets",
+          "tableTo": "bookings",
+          "schemaTo": "bookings",
+          "columnsFrom": [
+            "book_ref"
+          ],
+          "columnsTo": [
+            "book_ref"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {
+    "bookings": "bookings"
+  },
+  "sequences": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

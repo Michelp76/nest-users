@@ -15,7 +15,9 @@ import * as schema from './schema';
           connectionString: databasURL,
           ssl: false,
         });
-        return drizzle(pool, { schema }) as NodePgDatabase<typeof schema>;
+        return drizzle(pool, { schema, logger: true }) as NodePgDatabase<
+          typeof schema
+        >;
       },
     },
   ],
