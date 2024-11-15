@@ -21,7 +21,7 @@ docker compose -f docker-compose.yaml up
 npm run db:migrate
 ```
 
-## Insérer les données dans les tables depuis le dump inclus dans le sous-dossier ./db
+## Insérer les données dans les tables depuis le dump inclus dans le sous-dossier ./db (non testé)
 
 Cf. https://stackoverflow.com/a/24049420
 ```bash
