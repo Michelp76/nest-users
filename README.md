@@ -1,3 +1,6 @@
+CRUD basique avec Nestjs branché à Drizzle ORM
+Sur une base Postgresql "réelle"
+
 ## Installation des modules
 
 ```bash
@@ -31,7 +34,7 @@ docker exec -i nest-users-postgres-1 pg_restore -Fc -j 8  db/my_db_dump_20241115
 
 Se connecter à http://localhost:8080/browser/  
 Login & mdp PgAdmin trouvables dans le fichier config "docker-compose-yml"  
-Enregistrer un nouveau serveur tel que : 
+"Enregistrer" un nouveau serveur tel que : 
 
 ![image](https://github.com/user-attachments/assets/e05e8b2c-04f7-4aee-9fde-bdfab0f0ffa5)
 
