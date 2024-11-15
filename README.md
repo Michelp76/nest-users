@@ -21,8 +21,9 @@ docker compose -f docker-compose.yaml up
 npm run db:migrate
 ```
 
-## Insérer les données dans les tables depuis le dump inclus dans le sous-dossier ./db (non testé)
+## Insérer les données dans les tables depuis le dump inclus dans le sous-dossier ./db
 
+/!\ Non testé  
 Cf. https://stackoverflow.com/a/24049420
 ```bash
 docker exec -i nest-users-postgres-1 pg_restore -Fc -j 8  db/my_db_dump_20241115.sql --dbname=postgres://postgres:local@localhost:5432/
