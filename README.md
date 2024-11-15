@@ -1,99 +1,42 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
+## Installation des modules
 
 ```bash
-$ npm install
+npm install
 ```
 
-## Compile and run the project
+## Installation des images (Postgres + PgAdmin) Docker
+
+/!\ Installer avant "Docker Desktop" (pour Windows)
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+docker compose -f docker-compose.yaml up
 ```
 
-## Run tests
+## Lancer les migrations Drizzle (pour créer la base de données à partir du script SQL)
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run db:migrate
 ```
 
-## Deployment
+## Insérer les données dans les tables depuis le dump inclus dans le sous-dossier ./db
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Cf. https://stackoverflow.com/a/24049420
+```bash
+docker exec -i nest-users-postgres-1 pg_restore -Fc -j 8  db/my_db_dump_20241115.sql --dbname=postgres://postgres:local@localhost:5432/
+```
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Lancer le serveur
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Tester les API avec "Insomnia"
 
-## Resources
+/!\ Installer avant "Insomnia"
 
-Check out a few resources that may come in handy when working with NestJS:
+Importer les requêtes HTTP suivantes dans Insomnia (format Json)
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```json
+{"_type":"export","__export_format":4,"__export_date":"2024-11-15T14:14:10.768Z","__export_source":"insomnia.desktop.app:v10.1.1","resources":[{"_id":"req_7681b8b4720841f3a42abf1cae294502","parentId":"wrk_3322a2956942472c9aa1d28ec985af0e","modified":1730211556265,"created":1730211448596,"url":"http://localhost:3000/airports_data/","name":"Airports_data - Insert","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"airportCode\" : \"DIY\",\t\n\t\"airportName\" : \"DisneyAirport\",\n\t\"city\" : \"Orlando\",\n\t\"coordinates\" : {\"x\":48.0063018799,\"y\":46.2832984924},\n\t\"timezone\" : \"Paris/London\"\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"},{"name":"User-Agent","value":"insomnia/10.1.1"}],"authentication":{},"metaSortKey":-1730211448596,"isPrivate":false,"pathParameters":[],"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"wrk_3322a2956942472c9aa1d28ec985af0e","parentId":null,"modified":1730110611928,"created":1730110611928,"name":"NestJs-Airports","description":"","scope":"collection","_type":"workspace"},{"_id":"req_f61cbf73c4ec46599af09381668b5051","parentId":"wrk_3322a2956942472c9aa1d28ec985af0e","modified":1730211813230,"created":1730193791110,"url":"http://localhost:3000/airports_data/GRV","name":"Airports_data - Update","description":"","method":"PATCH","body":{"mimeType":"application/json","text":"{\n\t\"airportName\" : \"DisneyAirport\",\n\t\"city\" : \"Orlando\",\n\t\"coordinates\" : {\"x\":48.0063018799,\"y\":46.2832984924},\n\t\"timezone\" : \"Paris/Londoz\"\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"},{"name":"User-Agent","value":"insomnia/10.1.1"}],"authentication":{},"metaSortKey":-1730193791110,"isPrivate":false,"pathParameters":[],"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_45df4a4b8d074ca3a9066a37a797e069","parentId":"wrk_3322a2956942472c9aa1d28ec985af0e","modified":1731677734622,"created":1730130051148,"url":"http://localhost:3000/airports_data/DIY","name":"Airports_data - Delete","description":"","method":"DELETE","body":{},"parameters":[],"headers":[{"name":"User-Agent","value":"insomnia/10.1.1"}],"authentication":{},"metaSortKey":-1730130051148,"isPrivate":false,"pathParameters":[],"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_bfd34aaad81c4e28b906153147522dfb","parentId":"wrk_3322a2956942472c9aa1d28ec985af0e","modified":1730193945275,"created":1730126989192,"url":"http://localhost:3000/airports_data/","name":"Airports_data - Find All","description":"","method":"GET","body":{},"parameters":[],"headers":[{"name":"User-Agent","value":"insomnia/10.1.1"}],"authentication":{},"metaSortKey":-1730126989192,"isPrivate":false,"pathParameters":[],"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_82d7c566014e4354bdde525cdcf67793","parentId":"wrk_3322a2956942472c9aa1d28ec985af0e","modified":1731677741889,"created":1730110877561,"url":"http://localhost:3000/airports_data/DIY","name":"Airports_data - Get By Id","description":"","method":"GET","body":{},"parameters":[],"headers":[{"name":"User-Agent","value":"insomnia/10.1.1"}],"authentication":{},"metaSortKey":-1730110877561,"isPrivate":false,"pathParameters":[],"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"env_b6c46a6f4ecdc5f55ab6d534ace1222315e99546","parentId":"wrk_3322a2956942472c9aa1d28ec985af0e","modified":1730110611930,"created":1730110611930,"name":"Base Environment","data":{},"dataPropertyOrder":null,"color":null,"isPrivate":false,"metaSortKey":1730110611930,"_type":"environment"},{"_id":"jar_b6c46a6f4ecdc5f55ab6d534ace1222315e99546","parentId":"wrk_3322a2956942472c9aa1d28ec985af0e","modified":1730110611933,"created":1730110611933,"name":"Default Jar","cookies":[],"_type":"cookie_jar"}]}
+```
