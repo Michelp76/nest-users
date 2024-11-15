@@ -1,5 +1,6 @@
 CRUD basique avec Nestjs branché à Drizzle ORM
-Sur une base Postgresql "réelle"
+Sur une base Postgresql "réelle" (libre de droits) :
+https://postgrespro.com/community/demodb
 
 ## Installation des modules
 
