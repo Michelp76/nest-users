@@ -1,5 +1,5 @@
 {
-  "id": "4547b833-1524-4b3c-a3a5-18df5c192357",
+  "id": "abcfca02-47a6-439c-aa9e-a0b442e96b58",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -31,7 +31,9 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.airports_data": {
       "name": "airports_data",
@@ -72,7 +74,9 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.boarding_passes": {
       "name": "boarding_passes",
@@ -81,13 +85,13 @@
         "ticket_no": {
           "name": "ticket_no",
           "type": "char(13)",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "flight_id": {
           "name": "flight_id",
           "type": "integer",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "boarding_no": {
@@ -147,7 +151,9 @@
           ]
         }
       },
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.bookings": {
       "name": "bookings",
@@ -176,7 +182,9 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.flights": {
       "name": "flights",
@@ -256,7 +264,7 @@
           "columnsTo": [
             "airport_code"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "flights_arrival_airport_airports_data_airport_code_fk": {
@@ -270,7 +278,7 @@
           "columnsTo": [
             "airport_code"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "flights_aircraft_code_aircrafts_data_aircraft_code_fk": {
@@ -299,7 +307,9 @@
           ]
         }
       },
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.seats": {
       "name": "seats",
@@ -308,13 +318,13 @@
         "aircraft_code": {
           "name": "aircraft_code",
           "type": "char(3)",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "seat_no": {
           "name": "seat_no",
           "type": "varchar(4)",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "fare_conditions": {
@@ -351,7 +361,9 @@
         }
       },
       "uniqueConstraints": {},
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.ticket_flights": {
       "name": "ticket_flights",
@@ -360,13 +372,13 @@
         "ticket_no": {
           "name": "ticket_no",
           "type": "char(13)",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "flight_id": {
           "name": "flight_id",
           "type": "integer",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "fare_conditions": {
@@ -422,8 +434,18 @@
           ]
         }
       },
-      "uniqueConstraints": {},
-      "checkConstraints": {}
+      "uniqueConstraints": {
+        "ticket_flights_flight_id_unique": {
+          "name": "ticket_flights_flight_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "flight_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.tickets": {
       "name": "tickets",
@@ -479,7 +501,9 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     }
   },
   "enums": {},
@@ -487,6 +511,8 @@
     "bookings": "bookings"
   },
   "sequences": {},
+  "roles": {},
+  "policies": {},
   "views": {},
   "_meta": {
     "columns": {},

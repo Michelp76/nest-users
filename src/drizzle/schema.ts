@@ -14,8 +14,8 @@ export const tickets = bookingsSchema.table("tickets", {
 });
 
 export const boardingPasses = bookingsSchema.table("boarding_passes", {
-	ticketNo: char("ticket_no", { length: 13 }).primaryKey().notNull(),
-	flightId: integer("flight_id").primaryKey().notNull().references(() => ticketFlights.flightId),
+	ticketNo: char("ticket_no", { length: 13 }).notNull(),
+	flightId: integer("flight_id").notNull().references(() => ticketFlights.flightId),
 	boardingNo: integer("boarding_no").notNull(),
 	seatNo: varchar("seat_no", { length: 4 }).notNull(),
 },
@@ -52,8 +52,8 @@ export const aircraftsData = bookingsSchema.table("aircrafts_data", {
 });
 
 export const ticketFlights = bookingsSchema.table("ticket_flights", {
-	ticketNo: char("ticket_no", { length: 13 }).primaryKey().notNull().references(() => tickets.ticketNo),
-	flightId: integer("flight_id").primaryKey().notNull().references(() => flights.flightId),
+	ticketNo: char("ticket_no", { length: 13 }).notNull().references(() => tickets.ticketNo),
+	flightId: integer("flight_id").notNull().references(() => flights.flightId, { onDelete: "cascade" }),
 	fareConditions: varchar("fare_conditions", { length: 10 }).notNull(),
 	amount: numeric("amount", { precision: 10, scale:  2 }).notNull(),
 },
@@ -70,8 +70,8 @@ export const bookings = bookingsSchema.table("bookings", {
 });
 
 export const seats = bookingsSchema.table("seats", {
-	aircraftCode: char("aircraft_code", { length: 3 }).primaryKey().notNull().references(() => aircraftsData.aircraftCode, { onDelete: "cascade" } ),
-	seatNo: varchar("seat_no", { length: 4 }).primaryKey().notNull(),
+	aircraftCode: char("aircraft_code", { length: 3 }).notNull().references(() => aircraftsData.aircraftCode, { onDelete: "cascade" } ),
+	seatNo: varchar("seat_no", { length: 4 }).notNull(),
 	fareConditions: varchar("fare_conditions", { length: 10 }).notNull(),
 },
 (table) => {

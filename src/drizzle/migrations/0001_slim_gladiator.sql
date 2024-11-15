@@ -1,0 +1,1 @@
+ALTER TABLE "bookings"."ticket_flights" DROP CONSTRAINT "ticket_flights_flight_id_unique" CASCADE;

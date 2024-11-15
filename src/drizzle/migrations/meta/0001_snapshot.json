@@ -1,6 +1,6 @@
 {
-  "id": "02ad632b-f790-4417-9e50-582b83a92b72",
-  "prevId": "4547b833-1524-4b3c-a3a5-18df5c192357",
+  "id": "309432a9-d742-427f-8df5-e30887d5be06",
+  "prevId": "abcfca02-47a6-439c-aa9e-a0b442e96b58",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -31,7 +31,9 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.airports_data": {
       "name": "airports_data",
@@ -72,7 +74,9 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.boarding_passes": {
       "name": "boarding_passes",
@@ -81,13 +85,13 @@
         "ticket_no": {
           "name": "ticket_no",
           "type": "char(13)",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "flight_id": {
           "name": "flight_id",
           "type": "integer",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "boarding_no": {
@@ -147,7 +151,9 @@
           ]
         }
       },
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.bookings": {
       "name": "bookings",
@@ -176,7 +182,9 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.flights": {
       "name": "flights",
@@ -299,7 +307,9 @@
           ]
         }
       },
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.seats": {
       "name": "seats",
@@ -308,13 +318,13 @@
         "aircraft_code": {
           "name": "aircraft_code",
           "type": "char(3)",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "seat_no": {
           "name": "seat_no",
           "type": "varchar(4)",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "fare_conditions": {
@@ -351,7 +361,9 @@
         }
       },
       "uniqueConstraints": {},
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.ticket_flights": {
       "name": "ticket_flights",
@@ -360,13 +372,13 @@
         "ticket_no": {
           "name": "ticket_no",
           "type": "char(13)",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "flight_id": {
           "name": "flight_id",
           "type": "integer",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "fare_conditions": {
@@ -423,7 +435,9 @@
         }
       },
       "uniqueConstraints": {},
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "bookings.tickets": {
       "name": "tickets",
@@ -479,7 +493,9 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraints": {}
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     }
   },
   "enums": {},
@@ -487,6 +503,8 @@
     "bookings": "bookings"
   },
   "sequences": {},
+  "roles": {},
+  "policies": {},
   "views": {},
   "_meta": {
     "columns": {},
