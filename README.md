@@ -15,11 +15,9 @@ Puis dans un terminal :
 docker compose -f docker-compose.yaml up
 ```
 
-## Lancer les migrations Drizzle (pour créer la base de données à partir du script SQL)
+<del>## Lancer les migrations Drizzle (pour créer la base de données à partir du script SQL)</del>  
 
-```bash
-npm run db:migrate
-```
+La restauration de la base à partir du dump (ci-dessous) devrait suffire
 
 ## Insérer les données dans les tables depuis le dump inclus dans le sous-dossier ./db
 
