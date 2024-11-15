@@ -57,3 +57,8 @@ Importer les requêtes HTTP suivantes dans Insomnia (format Json)
 ```
 
 ![image](https://github.com/user-attachments/assets/1eb9a7ce-4cfd-4010-b21f-10fdd28f7efc)
+
+Correspondant respectivement aux méthodes (ici dans le Controller) :
+
+![image](https://github.com/user-attachments/assets/86f4dd7a-92dc-4131-9316-c3df0db1de88)
+
