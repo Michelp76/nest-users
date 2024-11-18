@@ -1,3 +1,7 @@
+CRUD basique avec [Nestjs](https://nestjs.com/), branché à Drizzle ORM
+Sur une base Postgresql "réelle" (libre de droits) :
+https://postgrespro.com/community/demodb
+
 ## Installation des modules
 
 ```bash
@@ -15,11 +19,9 @@ Puis dans un terminal :
 docker compose -f docker-compose.yaml up
 ```
 
-## Lancer les migrations Drizzle (pour créer la base de données à partir du script SQL)
+<del>## Lancer les migrations Drizzle (pour créer la base de données à partir du script SQL)</del>  
 
-```bash
-npm run db:migrate
-```
+La restauration de la base à partir du dump (ci-dessous) devrait suffire
 
 ## Insérer les données dans les tables depuis le dump inclus dans le sous-dossier ./db
 
@@ -33,7 +35,7 @@ docker exec -i nest-users-postgres-1 pg_restore -Fc -j 8  db/my_db_dump_20241115
 
 Se connecter à http://localhost:8080/browser/  
 Login & mdp PgAdmin trouvables dans le fichier config "docker-compose-yml"  
-Enregistrer un nouveau serveur tel que : 
+"Enregistrer" un nouveau serveur tel que : 
 
 ![image](https://github.com/user-attachments/assets/e05e8b2c-04f7-4aee-9fde-bdfab0f0ffa5)
 
@@ -55,3 +57,8 @@ Importer les requêtes HTTP suivantes dans Insomnia (format Json)
 ```
 
 ![image](https://github.com/user-attachments/assets/1eb9a7ce-4cfd-4010-b21f-10fdd28f7efc)
+
+Correspondant respectivement aux méthodes (ici dans le Controller) :
+
+![image](https://github.com/user-attachments/assets/86f4dd7a-92dc-4131-9316-c3df0db1de88)
+
