@@ -22,6 +22,27 @@
       "when": 1731677605514,
       "tag": "0002_material_moira_mactaggert",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1731920341631,
+      "tag": "0003_slim_slayback",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1731922562301,
+      "tag": "0004_illegal_living_tribunal",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1731923422043,
+      "tag": "0005_glossy_bulldozer",
+      "breakpoints": true
     }
   ]
 }

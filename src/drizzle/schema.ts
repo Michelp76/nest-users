@@ -3,7 +3,21 @@ import { sql } from "drizzle-orm"
 
 export const bookingsSchema = pgSchema("bookings");
 
+// Schéma generé par la commande "drizzle-kit pull"
+// ------------------------------------------------
 
+// /!\ Drizzle ne gère pas (encore) les "rollbacks" de migration (ie. comme KnexJs 'down')
+
+// Creation / Update dates
+const timestamps = {
+	created_at: timestamp({ withTimezone: true, mode: 'string' })
+		.default(sql`(now() AT TIME ZONE 'utc'::text)`)
+		.notNull(),
+	updated_at: timestamp({ withTimezone: true, mode: 'string' })
+		.default(sql`(now() AT TIME ZONE 'utc'::text)`)
+		.notNull()
+		.$onUpdate(() => sql`(now() AT TIME ZONE 'utc'::text)`),
+}
 
 export const tickets = bookingsSchema.table("tickets", {
 	ticketNo: char("ticket_no", { length: 13 }).primaryKey().notNull(),
@@ -11,6 +25,7 @@ export const tickets = bookingsSchema.table("tickets", {
 	passengerId: varchar("passenger_id", { length: 20 }).notNull(),
 	passengerName: text("passenger_name").notNull(),
 	contactData: jsonb("contact_data"),
+	...timestamps,	
 });
 
 export const boardingPasses = bookingsSchema.table("boarding_passes", {
@@ -18,6 +33,7 @@ export const boardingPasses = bookingsSchema.table("boarding_passes", {
 	flightId: integer("flight_id").notNull().references(() => ticketFlights.flightId),
 	boardingNo: integer("boarding_no").notNull(),
 	seatNo: varchar("seat_no", { length: 4 }).notNull(),
+	...timestamps,	
 },
 (table) => {
 	return {
@@ -38,6 +54,7 @@ export const flights = bookingsSchema.table("flights", {
 	aircraftCode: char("aircraft_code", { length: 3 }).notNull().references(() => aircraftsData.aircraftCode),
 	actualDeparture: timestamp("actual_departure", { withTimezone: true, mode: 'string' }),
 	actualArrival: timestamp("actual_arrival", { withTimezone: true, mode: 'string' }),
+	...timestamps,	
 },
 (table) => {
 	return {
@@ -49,13 +66,15 @@ export const aircraftsData = bookingsSchema.table("aircrafts_data", {
 	aircraftCode: char("aircraft_code", { length: 3 }).primaryKey().notNull(),
 	model: jsonb("model").notNull(),
 	range: integer("range").notNull(),
+	...timestamps,	
 });
 
 export const ticketFlights = bookingsSchema.table("ticket_flights", {
 	ticketNo: char("ticket_no", { length: 13 }).notNull().references(() => tickets.ticketNo),
 	flightId: integer("flight_id").notNull().references(() => flights.flightId, { onDelete: "cascade" }),
 	fareConditions: varchar("fare_conditions", { length: 10 }).notNull(),
-	amount: numeric("amount", { precision: 10, scale:  2 }).notNull(),
+	amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
+	...timestamps,	
 },
 (table) => {
 	return {
@@ -66,13 +85,15 @@ export const ticketFlights = bookingsSchema.table("ticket_flights", {
 export const bookings = bookingsSchema.table("bookings", {
 	bookRef: char("book_ref", { length: 6 }).primaryKey().notNull(),
 	bookDate: timestamp("book_date", { withTimezone: true, mode: 'string' }).notNull(),
-	totalAmount: numeric("total_amount", { precision: 10, scale:  2 }).notNull(),
+	totalAmount: numeric("total_amount", { precision: 10, scale: 2 }).notNull(),
+	...timestamps,	
 });
 
 export const seats = bookingsSchema.table("seats", {
 	aircraftCode: char("aircraft_code", { length: 3 }).notNull().references(() => aircraftsData.aircraftCode, { onDelete: "cascade" } ),
 	seatNo: varchar("seat_no", { length: 4 }).notNull(),
 	fareConditions: varchar("fare_conditions", { length: 10 }).notNull(),
+	...timestamps,	
 },
 (table) => {
 	return {
@@ -86,4 +107,5 @@ export const airportsData = bookingsSchema.table("airports_data", {
 	city: jsonb("city").notNull(),
 	coordinates: point("coordinates", { mode: 'xy' }).notNull(),
 	timezone: text("timezone").notNull(),
+	...timestamps,
 });

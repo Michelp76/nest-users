@@ -1,0 +1,2 @@
+ALTER TABLE "bookings"."airports_data" RENAME COLUMN "timestamp1" TO "created_at";--> statement-breakpoint
+ALTER TABLE "bookings"."airports_data" ADD COLUMN "updated_at" timestamp with time zone DEFAULT (now() AT TIME ZONE 'utc'::text) NOT NULL;

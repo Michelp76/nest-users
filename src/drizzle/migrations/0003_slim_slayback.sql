@@ -1,0 +1,1 @@
+ALTER TABLE "bookings"."airports_data" ADD COLUMN "timestamp1" timestamp DEFAULT now() NOT NULL;
