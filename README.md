@@ -16,7 +16,7 @@ npm install
 
 Puis dans un terminal :
 ```bash
-docker compose -f docker-compose.yaml up
+docker compose -f docker-compose-yml up
 ```
 
 ## Lancer les migrations Drizzle (pour créer la base de données à partir du script SQL)
