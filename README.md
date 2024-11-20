@@ -19,16 +19,16 @@ Puis dans un terminal :
 docker compose -f docker-compose.yaml up
 ```
 
-<del>## Lancer les migrations Drizzle (pour créer la base de données à partir du script SQL)</del>  
+## Lancer les migrations Drizzle (pour créer la base de données à partir du script SQL)
 
-La restauration de la base à partir du dump (ci-dessous) devrait suffire
-
-## Insérer les données dans les tables depuis le dump inclus dans le sous-dossier ./db
-
-/!\ Non testé  
-Cf. https://stackoverflow.com/a/24049420
 ```bash
-docker exec -i nest-users-postgres-1 pg_restore -Fc -j 8  db/my_db_dump_20241115.sql --dbname=postgres://postgres:local@localhost:5432/
+npm run db:migrate
+```
+
+## Insérer les données dans les tables depuis le dump .sql inclus dans le sous-dossier ./db/
+
+```bash
+docker exec -i nest-users-postgres-1 psql -h host.docker.internal -f /home/db/airports_db.sql -U postgres
 ```
 
 ## Vérifier la base de données avec PgAdmin
