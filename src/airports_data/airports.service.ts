@@ -61,16 +61,9 @@ export class AirportsService {
   }
 
   async remove(id: string) {
-    // Todo gérer l'intégrité référentielle
-    // const flightsArrival = await this.db.query.flights.findMany({
-    //   where: eq(flights.arrivalAirport, id),
-    // });
-    // if (flightsArrival) {
-    //   await this.db.delete(flights).where(eq(flights.arrivalAirport, id));
-    // }
-
     return await this.db
       .delete(airportsData)
-      .where(eq(airportsData.airportCode, id));
+      .where(eq(airportsData.airportCode, id))
+      .returning();
   }
 }
