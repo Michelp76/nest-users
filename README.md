@@ -62,3 +62,9 @@ Correspondant respectivement aux méthodes (ici dans le Controller) :
 
 ![image](https://github.com/user-attachments/assets/86f4dd7a-92dc-4131-9316-c3df0db1de88)
 
+## Consulter les logs (générés par Winston) sur l'interface "Seq"
+
+![image](https://github.com/user-attachments/assets/5d2d997d-3d80-4b67-b16b-0a98658eb093)
+
+Ouvrir http://localhost:5341
+
