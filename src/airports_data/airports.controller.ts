@@ -23,17 +23,7 @@ export class AirportsController {
 
   @Post()
   create(@Body() createAirportDto: CreateAirportDto) {
-    this.logger.log(
-      
-      'info',
-     
-      'Méthode "%s" - Objet: %s',
-     
-      'create',
-     
-      createAirportDto,
-    ,
-    );
+    this.logger.log('info', 'Méthode "%s" - Objet: %s', 'create', createAirportDto)
     // info: test message 123 {}
     // this.logger.log('info', 'test message %d', 123);
     return this.airportsService.create(createAirportDto);
