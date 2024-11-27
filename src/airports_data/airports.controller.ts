@@ -24,10 +24,15 @@ export class AirportsController {
   @Post()
   create(@Body() createAirportDto: CreateAirportDto) {
     this.logger.log(
+      
       'info',
+     
       'Méthode "%s" - Objet: %s',
+     
       'create',
+     
       createAirportDto,
+    ,
     );
     // info: test message 123 {}
     // this.logger.log('info', 'test message %d', 123);
@@ -70,7 +75,6 @@ export class AirportsController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     const delItem = await this.airportsService.remove(id);
-
 
     if (delItem.length > 0) {
       this.logger.log(
