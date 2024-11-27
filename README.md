@@ -35,12 +35,17 @@ docker exec -i nest-users-postgres-1 psql -h host.docker.internal -f /home/db/ai
 
 Se connecter à http://localhost:8080/browser/  
 Login & mdp PgAdmin trouvables dans le fichier config "docker-compose-yml"  
+
 "Enregistrer" un nouveau serveur tel que : 
 
 ![image](https://github.com/user-attachments/assets/e05e8b2c-04f7-4aee-9fde-bdfab0f0ffa5)
 
+Vérifier que les tables sont bien créées et alimentées : 
 
-## Lancer le serveur
+![image](https://github.com/user-attachments/assets/fe0ea7d0-1eb1-40fe-aa54-c3b8df8b91cb)
+
+
+## Lancer le serveur Netjs (applicatif)
 
 ```bash
 npm run start:dev
