@@ -23,9 +23,14 @@ export class AirportsController {
 
   @Post()
   create(@Body() createAirportDto: CreateAirportDto) {
-    this.logger.log('info', 'Méthode "%s" - Objet: %s', 'create', createAirportDto);
+    this.logger.log(
+      'info',
+      'Méthode "%s" - Objet: %s',
+      'create',
+      createAirportDto,
+    );
     // info: test message 123 {}
-    // this.logger.log('info', 'test message %d', 123);    
+    // this.logger.log('info', 'test message %d', 123);
     return this.airportsService.create(createAirportDto);
   }
 
@@ -42,14 +47,41 @@ export class AirportsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAirportDto: UpdateAirportDto) {
-    this.logger.log('info', 'Méthode "%s" - Param: %s - Objet: %s', 'update', id, updateAirportDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateAirportDto: UpdateAirportDto,
+  ) {
+    // Old line
+    const updItem = await this.airportsService.findOne(id);
+
+    if (updItem.length > 0) {
+      this.logger.log(
+        'info',
+        'Méthode "%s" - Param: %s - Before: %s - After: %s',
+        'update',
+        id,
+        updItem[0],
+        updateAirportDto,
+      );
+    }
     return this.airportsService.update(id, updateAirportDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    this.logger.log('info', 'Méthode "%s" - param %s', 'delete', id);
-    return this.airportsService.remove(id);
+  async remove(@Param('id') id: string) {
+    const delItem = await this.airportsService.remove(id);
+
+
+    if (delItem.length > 0) {
+      this.logger.log(
+        'info',
+        'Méthode "%s" - param %s - Objet: %s',
+        'delete',
+        id,
+        delItem[0],
+      );
+    }
+
+    return delItem;
   }
 }

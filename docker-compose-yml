@@ -24,6 +24,27 @@ services:
     networks:
       - postgres
  
+  seqcli:
+    image: datalust/seqcli:latest
+    command: apikey create -t newapikey --token 12345678901234567890 -s http://seq
+    depends_on:
+      - seq
+    restart: on-failure
+    networks:
+      - seqnetwork
+
+  seq:
+    image: datalust/seq:latest
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:80
+    volumes:
+      - ./logs/:/data
+    networks:
+      - seqnetwork 
+
 networks:
   postgres:
     driver: bridge
+  seqnetwork:
