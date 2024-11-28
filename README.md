@@ -45,7 +45,7 @@ Vérifier que les tables sont bien créées et alimentées :
 ![image](https://github.com/user-attachments/assets/fe0ea7d0-1eb1-40fe-aa54-c3b8df8b91cb)
 
 
-## Lancer le serveur Netjs (applicatif)
+## Lancer le serveur Nestjs (applicatif)
 
 ```bash
 npm run start:dev
