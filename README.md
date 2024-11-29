@@ -73,3 +73,10 @@ Correspondant respectivement aux méthodes (ici dans le Controller) :
 
 Ouvrir http://localhost:5341
 
+(Je n'ai pas réussi à intégrer "morgan" pour avoir les logs Express, pas vraiment bien expliqué dans la doc "nest-winston")
+
+**TODO**: insert dans l'entité "Flights" ne fonctionne pas :
+
+![image](https://github.com/user-attachments/assets/d7a60bee-632e-45e5-86ac-74ec87b080a6)
+
+
