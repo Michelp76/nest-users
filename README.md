@@ -35,12 +35,17 @@ docker exec -i nest-users-postgres-1 psql -h host.docker.internal -f /home/db/ai
 
 Se connecter à http://localhost:8080/browser/  
 Login & mdp PgAdmin trouvables dans le fichier config "docker-compose-yml"  
+
 "Enregistrer" un nouveau serveur tel que : 
 
 ![image](https://github.com/user-attachments/assets/e05e8b2c-04f7-4aee-9fde-bdfab0f0ffa5)
 
+Vérifier que les tables sont bien créées et alimentées : 
 
-## Lancer le serveur
+![image](https://github.com/user-attachments/assets/fe0ea7d0-1eb1-40fe-aa54-c3b8df8b91cb)
+
+
+## Lancer le serveur Nestjs (applicatif)
 
 ```bash
 npm run start:dev
@@ -61,4 +66,17 @@ Importer les requêtes HTTP suivantes dans Insomnia (format Json)
 Correspondant respectivement aux méthodes (ici dans le Controller) :
 
 ![image](https://github.com/user-attachments/assets/86f4dd7a-92dc-4131-9316-c3df0db1de88)
+
+## Consulter les logs (générés par Winston) sur l'interface "Seq"
+
+![image](https://github.com/user-attachments/assets/5d2d997d-3d80-4b67-b16b-0a98658eb093)
+
+Ouvrir http://localhost:5341
+
+(Je n'ai pas réussi à intégrer "morgan" pour avoir les logs Express, pas vraiment bien expliqué dans la doc "nest-winston")
+
+**TODO**: insert dans l'entité "Flights" ne fonctionne pas :
+
+![image](https://github.com/user-attachments/assets/d7a60bee-632e-45e5-86ac-74ec87b080a6)
+
 
