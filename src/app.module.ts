@@ -11,6 +11,7 @@ import {
 import * as winston from 'winston';
 import 'winston-daily-rotate-file';
 import { SeqTransport } from '@datalust/winston-seq';
+import { FlightsModule } from './flights/flights.module';
 
 // const transComb = new winston.transports.DailyRotateFile({
 //   filename: 'logs/combined-%DATE%.log',
@@ -33,6 +34,7 @@ import { SeqTransport } from '@datalust/winston-seq';
   imports: [
     DrizzleModule,
     AirportsModule,
+    FlightsModule,    
     ConfigModule.forRoot({ isGlobal: true }),
     WinstonModule.forRoot({
       level: process.env.LOG_LEVEL || 'info',

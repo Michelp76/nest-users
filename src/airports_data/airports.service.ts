@@ -3,7 +3,7 @@ import { CreateAirportDto } from './dto/create-airport.dto';
 import { UpdateAirportDto } from './dto/update-airport.dto';
 import { DRIZZLE } from 'src/drizzle/drizzle.module';
 import { DrizzleDB } from 'src/drizzle/types/drizzle';
-import { airportsData, flights } from 'src/drizzle/schema';
+import { airportsData } from 'src/drizzle/schema';
 import { eq } from 'drizzle-orm';
 
 @Injectable()
