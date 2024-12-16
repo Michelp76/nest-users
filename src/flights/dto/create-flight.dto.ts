@@ -1,4 +1,6 @@
-import { IsDate, IsDateString, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsDate, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsAfter } from 'src/validator/utils';
 
 export class CreateFlightDto {
   @IsNotEmpty()
@@ -8,11 +10,14 @@ export class CreateFlightDto {
   flightNo: string;
 
   @IsNotEmpty()
-  @IsDateString()
+  @IsDate()
+  @Type(() => Date) 
   scheduledDeparture: string;
 
   @IsNotEmpty()
-  @IsDateString()    
+  @IsDate()
+  @Type(() => Date) 
+  @IsAfter('scheduledDeparture')
   scheduledArrival: string;
 
   @IsNotEmpty()
@@ -30,9 +35,15 @@ export class CreateFlightDto {
   @MaxLength(3)
   aircraftCode: string;
 
-  // @IsDateString()  
+  @IsOptional()
+  @IsDate()
+  @Type(() => Date) 
+  @IsAfter('scheduledDeparture')
   actualDeparture: string;
 
-  // @IsDateString()  
+  @IsOptional()
+  @IsDate()
+  @Type(() => Date) 
+  @IsAfter('scheduledArrival')
   actualArrival: string;
 }
