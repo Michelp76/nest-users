@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Inject,
+  Query,
 } from '@nestjs/common';
 import { FlightsService } from './flights.service';
 import { CreateFlightDto } from './dto/create-flight.dto';
@@ -23,19 +24,41 @@ export class FlightsController {
 
   @Post()
   create(@Body() createFlightDto: CreateFlightDto) {
-    this.logger.log('info', 'Méthode "%s" - Objet: %s', 'create', createFlightDto)    
+    this.logger.log(
+      'info',
+      'Méthode "%s" - Objet: %s',
+      'create',
+      createFlightDto,
+    );
     return this.flightsService.create(createFlightDto);
+  }
+
+  @Get('findByCriteria')
+  findByCriteria(
+    @Query('departureCity') departureCity: string,
+    @Query('arrivalCity') arrivalCity: string,
+    @Query('departureDate') departureDate: string,
+    @Query('arrivalDate') arrivalDate: string,    
+  ) {
+    this.logger.log(
+      'info',
+      'Méthode "%s" - Départ: %s - Arrivée: %s',
+      'findByCriteria',
+      departureCity,
+      arrivalCity,
+    );
+    return this.flightsService.findByCriteria(departureCity, arrivalCity, departureDate, arrivalDate);
   }
 
   @Get()
   findAll() {
-    this.logger.log('info', 'Méthode "%s"', 'findAll');    
+    this.logger.log('info', 'Méthode "%s"', 'findAll');
     return this.flightsService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    this.logger.log('info', 'Méthode "%s" - Param: %s', 'findOne', id);    
+    this.logger.log('info', 'Méthode "%s" - Param: %s', 'findOne', id);
     return this.flightsService.findOne(+id);
   }
 
